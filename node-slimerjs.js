@@ -4,6 +4,7 @@ var http            = require('http');
 var spawn 	    = require('child_process').spawn;
 var exec            = require('child_process').exec;
 var path            = require('path');
+var slimerjs        = require('slimerjs');
 
 var POLL_INTERVAL   = process.env.POLL_INTERVAL || 500;
 
@@ -63,7 +64,7 @@ function wrapArray(arr) {
 
 exports.create = function (callback, options) {
     if (options === undefined) options = {};
-    if (options.slimerPath === undefined) options.slimerPath = './slimerjs-0.9.4/slimerjs';
+    if (options.slimerPath === undefined) options.slimerPath = slimerjs.path;
     if (options.parameters === undefined) options.parameters = {};
 
     function spawnSlimer (callback) {

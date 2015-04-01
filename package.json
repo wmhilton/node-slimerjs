@@ -13,6 +13,7 @@
     "test": "./run_tests"
   },
   "dependencies": {
+    "slimerjs": "^0.9.5"
   },
   "devDependencies": {
     "nodeunit" : ""
