@@ -72,10 +72,17 @@ exports.create = function (callback, options) {
         for(var parm in options.parameters) {
             args.push('--' + parm + '=' + options.parameters[parm]);
         }
+        // Fix command line arguments for Windows
+        if (options.slimerPath.slice(-4) === '.bat') {
+          for (var i = 0; i < args.length; i++) {
+            args[i] = args[i].replace(/^--/,'/');
+            args[i] = args[i].replace('=',':');
+          }
+        }
         args = args.concat([path.join(__dirname, 'bridge.js')]);
 	//console.log('launch ' + options.slimerPath + ' ' + args);
         var slimer = spawn(options.slimerPath, args);
-	
+
         // Ensure that the child process is closed when this process dies
         var closeChild = function () {
             try {
@@ -123,7 +130,7 @@ exports.create = function (callback, options) {
             slimer.stdout.on('data', function (data) {
                 return console.log('slimer stdout: '+data);
             });
-            
+
             var matches = data.toString().match(/Ready \[(\d+)\]/);
             if (!matches) {
                 slimer.kill();
@@ -141,7 +148,7 @@ exports.create = function (callback, options) {
         	}
         },100);
     };
-    
+
     spawnSlimer(function (err, slimer, port) {
         if (err) {
             return callback(err);
@@ -224,7 +231,7 @@ exports.create = function (callback, options) {
 
             pages[id] = page;
 
-            return page;            
+            return page;
         }
 
         var poll_func = setup_long_poll(slimer, port, pages, setup_new_page);
@@ -264,7 +271,7 @@ exports.create = function (callback, options) {
 		    //console.log('data to parse: '+data);
                     var results = JSON.parse(data);
                    // console.log("Response: ", results);
-                    
+
                     if (err) {
                         next();
                         return callback(results);
@@ -332,7 +339,7 @@ exports.create = function (callback, options) {
                 slimer.on.apply(slimer, arguments);
             }
         };
-        
+
         callback(null, proxy);
     });
 }
