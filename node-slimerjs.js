@@ -331,9 +331,7 @@ exports.create = function (callback, options) {
                 request_queue.push([[0, 'getProperty', property], callbackOrDummy(callback, poll_func)]);
             },
             exit: function(callback){
-
-                slimer.kill('SIGTERM');
-                callbackOrDummy(callback)();
+                request_queue.push([[0, 'exit', 0], callbackOrDummy(callback, poll_func)]);
             },
             on: function () {
                 slimer.on.apply(slimer, arguments);
