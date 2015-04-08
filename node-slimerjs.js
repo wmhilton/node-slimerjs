@@ -298,7 +298,7 @@ exports.create = function (callback, options) {
             })
 
             req.on('socket', function (socket) {
-                socket.setTimeout(1000, function () {
+                socket.setTimeout(30000, function () {
                     callback("Request() error evaluating " + method + "() call: socket timeout");
                 });
             })
