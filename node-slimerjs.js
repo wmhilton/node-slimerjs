@@ -269,9 +269,15 @@ exports.create = function (callback, options) {
                         next();
                         return callback("No response body for page." + method + "()");
                     }
-		    //console.log('data to parse: '+data);
-                    var results = JSON.parse(data);
-                   // console.log("Response: ", results);
+                    //console.log('data to parse: '+data);
+                    try {
+                        var results = JSON.parse(data);
+                    } catch (err) {
+                        next();
+                        return callback("JSON.parse Error in response body." + method + "()");
+                    }
+
+                    // console.log("Response: ", results);
 
                     if (err) {
                         next();
