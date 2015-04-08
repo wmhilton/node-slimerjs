@@ -6,6 +6,8 @@ var exec            = require('child_process').exec;
 var path            = require('path');
 var slimerjs        = require('slimerjs');
 var treekill        = require('tree-kill');
+var once            = require('once');
+
 
 var POLL_INTERVAL   = process.env.POLL_INTERVAL || 500;
 
@@ -240,7 +242,7 @@ exports.create = function (callback, options) {
         var request_queue = queue(function (paramarr, next) {
 
             var params = paramarr[0];
-            var callback = paramarr[1];
+            var callback = once(paramarr[1]);
             var page = params[0];
             var method = params[1];
             var args = params.slice(2);
