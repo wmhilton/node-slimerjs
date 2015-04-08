@@ -1,10 +1,11 @@
 "use strict";
 
 var http            = require('http');
-var spawn 	    = require('child_process').spawn;
+var spawn 	        = require('child_process').spawn;
 var exec            = require('child_process').exec;
 var path            = require('path');
 var slimerjs        = require('slimerjs');
+var treekill        = require('tree-kill');
 
 var POLL_INTERVAL   = process.env.POLL_INTERVAL || 500;
 
@@ -315,7 +316,7 @@ exports.create = function (callback, options) {
             process: slimer,
             createPage: function (callback) {
                 //console.log("push a 'createPage'");
-		request_queue.push([[0,'createPage'], callbackOrDummy(callback, poll_func)]);
+	              request_queue.push([[0,'createPage'], callbackOrDummy(callback, poll_func)]);
             },
             injectJs: function (filename,callback) {
                 request_queue.push([[0,'injectJs', filename], callbackOrDummy(callback, poll_func)]);
@@ -337,6 +338,10 @@ exports.create = function (callback, options) {
             },
             exit: function(callback){
                 request_queue.push([[0, 'exit'], callbackOrDummy(callback, poll_func)]);
+            },
+            kill: function(callback){
+                console.log('DIE!!!');
+                treekill(slimer.pid, 'SIGTERM', callbackOrDummy(callback));
             },
             on: function () {
                 slimer.on.apply(slimer, arguments);

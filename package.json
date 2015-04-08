@@ -13,10 +13,11 @@
     "test": "./run_tests"
   },
   "dependencies": {
-    "slimerjs": "^0.9.5"
+    "slimerjs": "^0.9.5",
+    "tree-kill": "0.0.7"
   },
   "devDependencies": {
-    "nodeunit" : ""
+    "nodeunit": ""
   },
   "optionalDependencies": {},
   "engines": {
