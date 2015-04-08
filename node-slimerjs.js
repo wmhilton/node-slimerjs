@@ -292,8 +292,14 @@ exports.create = function (callback, options) {
             });
 
             req.on('error', function (err) {
-               // console.warn("Request() error evaluating " + method + "() call: " + err);
+                console.warn("Request() error evaluating " + method + "() call: " + err);
                 callback("Request() error evaluating " + method + "() call: " + err);
+            })
+
+            req.on('socket', function (socket) {
+                socket.setTimeout(1000, function () {
+                    callback("Request() error evaluating " + method + "() call: socket timeout");
+                });
             })
 
             req.setHeader('Content-Type', 'application/json');
@@ -312,7 +318,6 @@ exports.create = function (callback, options) {
 		request_queue.push([[0,'createPage'], callbackOrDummy(callback, poll_func)]);
             },
             injectJs: function (filename,callback) {
-
                 request_queue.push([[0,'injectJs', filename], callbackOrDummy(callback, poll_func)]);
             },
             addCookie: function (cookie, callback) {
@@ -331,7 +336,7 @@ exports.create = function (callback, options) {
                 request_queue.push([[0, 'getProperty', property], callbackOrDummy(callback, poll_func)]);
             },
             exit: function(callback){
-                request_queue.push([[0, 'exit', 0], callbackOrDummy(callback, poll_func)]);
+                request_queue.push([[0, 'exit'], callbackOrDummy(callback, poll_func)]);
             },
             on: function () {
                 slimer.on.apply(slimer, arguments);
