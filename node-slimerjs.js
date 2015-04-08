@@ -1,7 +1,7 @@
 "use strict";
 
 var http            = require('http');
-var spawn 	        = require('child_process').spawn;
+var spawn           = require('child_process').spawn;
 var exec            = require('child_process').exec;
 var path            = require('path');
 var slimerjs        = require('slimerjs');
@@ -81,7 +81,7 @@ exports.create = function (callback, options) {
           }
         }
         args = args.concat([path.join(__dirname, 'bridge.js')]);
-	//console.log('launch ' + options.slimerPath + ' ' + args);
+        //console.log('launch ' + options.slimerPath + ' ' + args);
         var slimer = spawn(options.slimerPath, args);
 
         // Ensure that the child process is closed when this process dies
@@ -105,7 +105,7 @@ exports.create = function (callback, options) {
         process.on('uncaughtException', uncaughtHandler);
 
         slimer.once('error', function (err) {
-        	callback(err);
+            callback(err);
         });
 
         slimer.stderr.on('data', function (data) {
@@ -126,7 +126,7 @@ exports.create = function (callback, options) {
 
         // Wait for "Ready" line
         slimer.stdout.once('data', function (data) {
-	    //console.log('bridge send: '+ data);
+        //console.log('bridge send: '+ data);
             // setup normal listener now
             slimer.stdout.on('data', function (data) {
                 return console.log('slimer stdout: '+data);
@@ -144,9 +144,9 @@ exports.create = function (callback, options) {
         });
 
         setTimeout(function () {    //wait a bit to see if the spawning of slimerjs immediately fails due to bad path or similar
-        	if (exitCode !== 0) {
-        		return callback("Slimer immediately exited with: " + exitCode);
-        	}
+            if (exitCode !== 0) {
+                return callback("Slimer immediately exited with: " + exitCode);
+            }
         },100);
     };
 
@@ -256,7 +256,7 @@ exports.create = function (callback, options) {
 
             var req = http.request(http_opts, function (res) {
 
-                 //console.log("Got a response: " + res.statusCode);
+                //console.log("Got a response: " + res.statusCode);
                 var err = res.statusCode == 500 ? true : false;
                 res.setEncoding('utf8');
                 var data = '';
@@ -322,7 +322,7 @@ exports.create = function (callback, options) {
             process: slimer,
             createPage: function (callback) {
                 //console.log("push a 'createPage'");
-	              request_queue.push([[0,'createPage'], callbackOrDummy(callback, poll_func)]);
+                request_queue.push([[0,'createPage'], callbackOrDummy(callback, poll_func)]);
             },
             injectJs: function (filename,callback) {
                 request_queue.push([[0,'injectJs', filename], callbackOrDummy(callback, poll_func)]);
@@ -429,7 +429,7 @@ function setup_long_poll (slimer, port, pages, setup_new_page) {
         });
         req.on('error', function (err) {
             if (dead || slimer.killed) return;
-           // console.warn("Poll Request error: " + err);
+            // console.warn("Poll Request error: " + err);
         });
     };
 
