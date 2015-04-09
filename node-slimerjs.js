@@ -302,11 +302,13 @@ exports.create = function (callback, options) {
 
             req.on('error', function (err) {
                 console.warn("Request() error evaluating " + method + "() call: " + err);
+                next();
                 callback("Request() error evaluating " + method + "() call: " + err);
             })
 
             req.on('socket', function (socket) {
                 socket.setTimeout(30000, function () {
+                    next();
                     callback("Request() error evaluating " + method + "() call: socket timeout");
                 });
             })
