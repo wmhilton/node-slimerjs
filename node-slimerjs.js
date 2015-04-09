@@ -162,7 +162,7 @@ exports.create = function (callback, options) {
         var pages = {};
 
         var setup_new_page = function (id) {
-            console.log("Page created with id: " + id);
+            // console.log("Page created with id: " + id);
             var methods = [
                 'addCookie', 'childFramesCount', 'childFramesName', 'clearCookies', 'close',
                 'currentFrameName', 'deleteCookie', 'evaluateJavaScript',
@@ -348,7 +348,6 @@ exports.create = function (callback, options) {
                 request_queue.push([[0, 'exit'], callbackOrDummy(callback, poll_func)]);
             },
             kill: function(callback){
-                console.log('DIE!!!');
                 treekill(slimer.pid, 'SIGTERM', callbackOrDummy(callback));
             },
             on: function () {
