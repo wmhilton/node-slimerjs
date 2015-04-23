@@ -83,7 +83,7 @@ exports.create = function (callback, options) {
           }
         }
         args = args.concat([path.join(__dirname, 'bridge.js')]);
-        //console.log('launch ' + options.slimerPath + ' ' + args);
+        // console.log('launch ' + options.slimerPath + ' ' + args.join(' '));
         var slimer = spawn(options.slimerPath, args);
 
         // Ensure that the child process is closed when this process dies
@@ -157,7 +157,7 @@ exports.create = function (callback, options) {
             return callback(err);
         }
 
-        console.log("Slimer spawned with web server on port: " + port);
+        // console.log("Slimer spawned with web server on port: " + port);
 
         var pages = {};
 
