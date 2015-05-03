@@ -94,17 +94,17 @@ exports.create = function (callback, options) {
             process.exit(1);
         };
 
-        var uncaughtHandler = function (err) {
-            console.error('Slimer spawn err: ' + err.stack);
-            closeChild();
-        };
+        // var uncaughtHandler = function (err) {
+        //     console.error('Slimer spawn err: ' + err.stack);
+        //     closeChild();
+        // };
 
         // Note it's possible to blow up maxEventListeners doing this - consider moving to a single handler.
         ['SIGINT', 'SIGTERM'].forEach(function(sig) {
             process.on(sig, closeChild);
         });
 
-        process.on('uncaughtException', uncaughtHandler);
+        // process.on('uncaughtException', uncaughtHandler);
 
         slimer.once('error', function (err) {
             callback(err);
@@ -122,7 +122,7 @@ exports.create = function (callback, options) {
             ['SIGINT', 'SIGTERM'].forEach(function(sig) {
                 process.removeListener(sig, closeChild);
             });
-            process.removeListener('uncaughtException', uncaughtHandler);
+            // process.removeListener('uncaughtException', uncaughtHandler);
             exitCode = code;
         });
 
