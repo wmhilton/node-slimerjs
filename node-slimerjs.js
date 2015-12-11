@@ -4,7 +4,13 @@ var http            = require('http');
 var spawn           = require('child_process').spawn;
 var exec            = require('child_process').exec;
 var path            = require('path');
-var slimerjs        = require('slimerjs');
+//var slimerjs        = require('slimerjs');
+var slimerjs = {};
+if (process.platform == 'win32') {
+    slimerjs.path = path.join(__dirname, './slimerjs/src/slimerjs.bat');
+} else {
+    slimerjs.path = path.join(__dirname, './slimerjs/src/slimerjs');
+}
 var treekill        = require('tree-kill');
 var once            = require('once');
 
