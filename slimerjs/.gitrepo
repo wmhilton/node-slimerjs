@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/wmhilton/slimerjs
+	branch = master
+	commit = 0ebeb694693969d3cec178f1588a5f8872ce4776
+	parent = 87afd0714dc5abf5db0cfdb29c0871a44eda987c
+	cmdver = 0.3.0

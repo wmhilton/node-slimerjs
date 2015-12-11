@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>test key event</title>
+
+        <script type="text/javascript">
+ 
+var result = {
+    keypressK:-1,
+    keypressC:-1,
+    keypressAlt: -1,
+    keypressShift: -1,
+    keypressCtrl: -1,
+    keypressMeta: -1,
+    keyupK:-1,
+    keyupC:-1,
+    keyupAlt: -1,
+    keyupShift: -1,
+    keyupCtrl: -1,
+    keyupMeta: -1,
+    keydownK:-1,
+    keydownC:-1,
+    keydownAlt: -1,
+    keydownShift: -1,
+    keydownCtrl: -1,
+    keydownMeta: -1
+}
+
+function showEventProperties(e)
+{
+    var k = result[e.type+"K"];
+    if ((typeof k ) == 'number') {
+        if (k == -1)
+            result[e.type+"K"] = e.keyCode;
+        else {
+            result[e.type+"K"] = new Array();
+            result[e.type+"K"].push(k)
+            result[e.type+"K"].push(e.keyCode)
+        }
+    }
+    else {
+        result[e.type+"K"].push(e.keyCode);
+    }
+
+    k = result[e.type+"C"];
+    if (typeof k == 'number') {
+        if (k == -1)
+            result[e.type+"C"] = e.charCode;
+        else {
+            result[e.type+"C"] = new Array();
+            result[e.type+"C"].push(k)
+            result[e.type+"C"].push(e.charCode)
+        }
+    }
+    else {
+        result[e.type+"C"].push(e.charCode);
+    }
+
+    k = result[e.type+"Alt"];
+    if (typeof k == 'number') {
+         result[e.type+"Alt"] = e.altKey;
+    }
+    else if (typeof k == 'boolean') {
+        result[e.type+"Alt"] = [ k ];
+        result[e.type+"Alt"].push(e.altKey)
+    }
+    else {
+        result[e.type+"Alt"].push(e.altKey)
+    }
+    
+
+    k = result[e.type+"Shift"];
+    if (typeof k == 'number') {
+         result[e.type+"Shift"] = e.shiftKey;
+    }
+    else if (typeof k == 'boolean') {
+        result[e.type+"Shift"] = [ k ];
+        result[e.type+"Shift"].push(e.shiftKey)
+    }
+    else {
+        result[e.type+"Shift"].push(e.shiftKey)
+    } 
+
+
+    k = result[e.type+"Ctrl"];
+    if (typeof k == 'number') {
+         result[e.type+"Ctrl"] = e.ctrlKey;
+    }
+    else if (typeof k == 'boolean') {
+        result[e.type+"Ctrl"] = [ k ];
+        result[e.type+"Ctrl"].push(e.ctrlKey)
+    }
+    else {
+        result[e.type+"Ctrl"].push(e.ctrlKey)
+    } 
+
+
+    k = result[e.type+"Meta"];
+    if (typeof k == 'number') {
+         result[e.type+"Meta"] = e.metaKey;
+    }
+    else if (typeof k == 'boolean') {
+        result[e.type+"Meta"] = [ k ];
+        result[e.type+"Meta"].push(e.metaKey)
+    }
+    else {
+        result[e.type+"Meta"].push(e.metaKey)
+    }
+}
+
+function clearK(){
+    result.keypressK = -1;
+    result.keypressC = -1;
+    result.keyupK = -1;
+    result.keyupC = -1;
+    result.keydownK = -1;
+    result.keydownC = -1;
+    result.keypressAlt= -1;
+    result.keypressShift= -1;
+    result.keypressCtrl= -1;
+    result.keypressMeta= -1;
+    result.keyupAlt= -1;
+    result.keyupShift= -1;
+    result.keyupCtrl= -1;
+    result.keyupMeta= -1;
+    result.keydownAlt= -1;
+    result.keydownShift= -1;
+    result.keydownCtrl= -1;
+    result.keydownMeta= -1;
+    document.getElementById('txt').value = '';
+    document.getElementById('txt').focus();
+}
+
+window.onload = function(event){
+    var t = document.getElementById('txt');
+    document.addEventListener("keydown", showEventProperties, true);
+    document.addEventListener("keyup", showEventProperties, true);
+    document.addEventListener("keypress", showEventProperties, true);
+    t.focus();
+    document.getElementById('tt').textContent= 'example';
+}
+        </script>
+    </head>
+    <body>
+        <h1 id="tt"></h1>
+        <input type="text" value="" id="txt" />
+    </body>
+</html>
+
+
+
