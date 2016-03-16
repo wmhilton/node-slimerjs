@@ -5,7 +5,7 @@
 ;
 [subrepo]
 	remote = https://github.com/wmhilton/slimerjs
-	branch = develop
-	commit = 618a4dadd49c5ac9685443db5f4456ea3a21bd23
-	parent = dbb144704345dd4fe3c4657c7ae66767e824e348
+	branch = master
+	commit = f3445476a3cc29ef628db984ce8610d2ee82e247
+	parent = 3107cec95847406d6719d1c730ddc8c06e5c1981
 	cmdver = 0.3.0
